@@ -65,9 +65,10 @@ ${error}`;
 
     if (!isEmptyInput(outputs) && matrix_mode) {
         const artifact_content = { [matrix_key]: outputs_struct }
+        const filename = "./" + step_name +"-"+ matrix_key
 
-        fs.writeFileSync("./" + step_name, JSON.stringify(artifact_content));
-        const fileBuffer = fs.readFileSync("./" + step_name);
+        fs.writeFileSync(filename, JSON.stringify(artifact_content));
+        const fileBuffer = fs.readFileSync(filename);
         const hashSum = crypto.createHash('sha256');
         hashSum.update(fileBuffer);
 
@@ -76,7 +77,7 @@ ${error}`;
         const artifactClient = new DefaultArtifactClient();
         const artifactName = hex;
         const files = [
-            "./" + step_name +"-"+ matrix_key,
+            filename,
         ]
 
         const rootDirectory = '.' // Also possible to use __dirname
