@@ -64,7 +64,7 @@ ${error}`;
     core.setOutput('result', JSON.stringify(outputs_struct))
 
     if (!isEmptyInput(outputs) && matrix_mode) {
-        const artifact_content = isEmptyInput(matrix_key) ? outputs_struct : { [matrix_key]: outputs_struct }
+        const artifact_content = { [matrix_key]: outputs_struct }
 
         fs.writeFileSync("./" + step_name, JSON.stringify(artifact_content));
         const fileBuffer = fs.readFileSync("./" + step_name);
@@ -76,7 +76,7 @@ ${error}`;
         const artifactClient = new DefaultArtifactClient();
         const artifactName = hex;
         const files = [
-            "./" + step_name,
+            "./" + step_name +"-"+ matrix_key,
         ]
 
         const rootDirectory = '.' // Also possible to use __dirname
