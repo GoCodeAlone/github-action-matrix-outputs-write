@@ -1,6 +1,6 @@
-name: 'Matrix outputs - write'
-description: 'Write outputs for matrix'
-author: hello@cloudposse.com
+name: 'Matrix outputs - write (filtered)'
+description: 'Write outputs for matrix. Patched to filter artifact download.'
+author: codingsloth@pm.me
 branding:
   icon: 'chevrons-up'
   color: 'white'
