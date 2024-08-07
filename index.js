@@ -75,7 +75,7 @@ ${error}`;
         const hex = hashSum.digest('hex');
 
         const artifactClient = new DefaultArtifactClient();
-        const artifactName = hex;
+        const artifactName = step_name +"-"+ matrix_key +"-"+ hex;
         const files = [
             filename,
         ]
