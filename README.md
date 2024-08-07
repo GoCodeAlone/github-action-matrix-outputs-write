@@ -1,6 +1,8 @@
+# This is a fork to correct a misbehavior in cloudposse's standard release
+The original action from cloudposse has a misbehavior where it's utilizing artifacts.  This artifact behavior is resulting in the read action downloading *all* workflow artifacts rather than solely the artifact that corresponds to the action, which can then cause the workflow to fail.  This fork exists to fix that behavior.
 
 <!-- markdownlint-disable -->
-# github-action-matrix-outputs-write [![Latest Release](https://img.shields.io/github/release/cloudposse/github-action-matrix-outputs-write.svg)](https://github.com/cloudposse/github-action-matrix-outputs-write/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# github-action-matrix-outputs-write [![Latest Release](https://img.shields.io/github/release/GoCodeAlone/github-action-matrix-outputs-write.svg)](https://github.com/GoCodeAlone/github-action-matrix-outputs-write/releases/latest)
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
@@ -65,16 +67,16 @@ reference in other jobs.
 
 There is a [workaround](https://github.com/community/community/discussions/17245#discussioncomment-3814009) to address the limitation.
 We implement the workaround with two GitHub Actions:
-* [Matrix Outputs Write](https://github.com/cloudposse/github-action-matrix-outputs-write)
-* [Matrix Outputs Read](https://github.com/cloudposse/github-action-matrix-outputs-read)
+* [Matrix Outputs Write](https://github.com/GoCodeAlone/github-action-matrix-outputs-write)
+* [Matrix Outputs Read](https://github.com/GoCodeAlone/github-action-matrix-outputs-read)
 
 ## v1 - What's new
 
 > [!IMPORTANT]
-> cloudposse/github-action-matrix-outputs-write@v1+ is not currently supported on GHES yet. If you are on GHES, you 
+> GoCodeAlone/github-action-matrix-outputs-write@v1+ is not currently supported on GHES yet. If you are on GHES, you 
 > must use [v0](https://github.com/cloudposse/github-action-matrix-outputs-write/releases/tag/0.5.0).
 
-The release of `cloudposse/github-action-matrix-outputs-write@v1` and `cloudposse/github-action-matrix-outputs-read@v1` 
+The release of `GoCodeAlone/github-action-matrix-outputs-write@v1` and `GoCodeAlone/github-action-matrix-outputs-read@v1` 
 are major changes to the backend architecture of Artifacts. They have numerous performance and behavioral improvements.
 
 For more information, see the [`@actions/artifact`](https://github.com/actions/toolkit/tree/main/packages/artifact) documentation.
@@ -82,7 +84,7 @@ For more information, see the [`@actions/artifact`](https://github.com/actions/t
 ### Breaking Changes
 
 1. On self hosted runners, additional [firewall rules](https://github.com/actions/toolkit/tree/main/packages/artifact#breaking-changes) may be required.
-2. Outputs writen with `cloudposse/github-action-matrix-outputs-write@v1` can not be read by `cloudposse/github-action-matrix-outputs-read@v0`and below versions.  
+2. Outputs writen with `GoCodeAlone/github-action-matrix-outputs-write@v1` can not be read by `cloudposse/github-action-matrix-outputs-read@v0`and below versions.  
 
 
 
@@ -122,7 +124,7 @@ Example how you can use workaround to reference matrix job outputs.
               PLATFORM=${{ matrix.platform }}
 
         ## Write for matrix outputs workaround 
-        - uses: cloudposse/github-action-matrix-outputs-write@v1
+        - uses: GoCodeAlone/github-action-matrix-outputs-write@v1
           id: out
           with:
             matrix-step-name: ${{ github.job }}
@@ -137,7 +139,7 @@ Example how you can use workaround to reference matrix job outputs.
       runs-on: ubuntu-latest
       needs: [build]
       steps:
-        - uses: cloudposse/github-action-matrix-outputs-read@v1
+        - uses: GoCodeAlone/github-action-matrix-outputs-read@v1
           id: read
           with:
             matrix-step-name: build
@@ -221,7 +223,7 @@ jobs:
     needs: [build]
     steps:        
       ## Write for matrix outputs workaround 
-      - uses: cloudposse/github-action-matrix-outputs-write@v1
+      - uses: GoCodeAlone/github-action-matrix-outputs-write@v1
         id: out
         with:
           matrix-step-name: ${{ inputs.matrix-step-name }}
@@ -262,7 +264,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: cloudposse/github-action-matrix-outputs-read@v1
+      - uses: GoCodeAlone/github-action-matrix-outputs-read@v1
         id: read
         with:
           matrix-step-name: build
@@ -345,7 +347,7 @@ jobs:
 
 ## Share the Love
 
-Like this project? Please give it a ★ on [our GitHub](https://github.com/cloudposse/github-action-matrix-outputs-write)! (it helps us **a lot**)
+Like this project? Please give it a ★ on [our GitHub](https://github.com/GoCodeAlone/github-action-matrix-outputs-write)! (it helps us **a lot**)
 
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
@@ -355,7 +357,7 @@ Are you using this project or any of our other projects? Consider [leaving a tes
 
 Check out these related projects.
 
-- [github-action-matrix-outputs-read](https://github.com/cloudposse/github-action-matrix-outputs-read) - Matrix outputs read
+- [github-action-matrix-outputs-read](https://github.com/GoCodeAlone/github-action-matrix-outputs-read) - Matrix outputs read
 
 
 ## References
@@ -370,7 +372,7 @@ For additional context, refer to some of these links.
 
 **Got a question?** We got answers.
 
-File a GitHub [issue](https://github.com/cloudposse/github-action-matrix-outputs-write/issues), send us an [email][email] or join our [Slack Community][slack].
+File a GitHub [issue](https://github.com/GoCodeAlone/github-action-matrix-outputs-write/issues) or send us an [email][email].
 
 [![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
 
@@ -408,17 +410,12 @@ Participate in our [Discourse Forums][discourse]. Here you'll find answers to co
 
 Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
 
-## Office Hours
-
-[Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
-
-[![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
 
 ## Contributing
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/github-action-matrix-outputs-write/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/GoCodeAlone/github-action-matrix-outputs-write/issues) to report any bugs or file feature requests.
 
 ### Developing
 
@@ -499,40 +496,38 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 |---|
 <!-- markdownlint-restore -->
 
-  [goruha_homepage]: https://github.com/goruha
-  [goruha_avatar]: https://img.cloudposse.com/150x150/https://github.com/goruha.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
 <!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
-  [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=docs
-  [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=website
-  [github]: https://cpco.io/github?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=github
-  [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=jobs
-  [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=hire
-  [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=slack
-  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=linkedin
-  [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=twitter
-  [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=testimonial
-  [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=office_hours
-  [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=newsletter
-  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=discourse
-  [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=email
-  [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=commercial_support
-  [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=we_love_open_source
-  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=terraform_modules
+  [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=docs
+  [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=website
+  [github]: https://cpco.io/github?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=github
+  [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=jobs
+  [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=hire
+  [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=slack
+  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=linkedin
+  [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=twitter
+  [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=testimonial
+  [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=office_hours
+  [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=newsletter
+  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=discourse
+  [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=email
+  [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=commercial_support
+  [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=we_love_open_source
+  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=terraform_modules
   [readme_header_img]: https://cloudposse.com/readme/header/img
-  [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=readme_header_link
+  [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=readme_header_link
   [readme_footer_img]: https://cloudposse.com/readme/footer/img
-  [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=readme_footer_link
+  [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
-  [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/github-action-matrix-outputs-write&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=github-action-matrix-outputs-write&url=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=github-action-matrix-outputs-write&url=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [share_email]: mailto:?subject=github-action-matrix-outputs-write&body=https://github.com/cloudposse/github-action-matrix-outputs-write
-  [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/github-action-matrix-outputs-write?pixel&cs=github&cm=readme&an=github-action-matrix-outputs-write
+  [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=GoCodeAlone/github-action-matrix-outputs-write&utm_content=readme_commercial_support_link
+  [share_twitter]: https://twitter.com/intent/tweet/?text=github-action-matrix-outputs-write&url=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=github-action-matrix-outputs-write&url=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [share_reddit]: https://reddit.com/submit/?url=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [share_googleplus]: https://plus.google.com/share?url=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [share_email]: mailto:?subject=github-action-matrix-outputs-write&body=https://github.com/GoCodeAlone/github-action-matrix-outputs-write
+  [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/GoCodeAlone/github-action-matrix-outputs-write?pixel&cs=github&cm=readme&an=github-action-matrix-outputs-write
 <!-- markdownlint-restore -->
